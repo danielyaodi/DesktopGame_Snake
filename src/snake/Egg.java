@@ -2,6 +2,7 @@ package snake;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.Random;
 
 public class Egg {
@@ -24,7 +25,15 @@ public class Egg {
 		row = r.nextInt(Yard.ROW-1) + 1;
 		col = r.nextInt(Yard.COL);
 	}
-
+	public Rectangle getRec(){
+		return   new Rectangle(col*Yard.BLOCK_SIZE,row*Yard.BLOCK_SIZE,Yard.BLOCK_SIZE,Yard.BLOCK_SIZE);
+		
+	}
+	
+	
+	
+	
+	 
 	public void draw(Graphics g){
 		Color c = g.getColor();
 		g.setColor(eggColor);

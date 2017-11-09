@@ -49,7 +49,9 @@ public class Yard extends JFrame {
 		}
 
 		g.setColor(c);
+		s.eat(egg);
 		s.draw(g);
+		
 		egg.draw(g);
 	}
 

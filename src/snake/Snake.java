@@ -2,6 +2,7 @@ package snake;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
 public class Snake {
@@ -94,6 +95,22 @@ public class Snake {
 		}
 
 	}
+	Rectangle getRect(){
+		return new Rectangle(head.col*Yard.BLOCK_SIZE,head.row*Yard.BLOCK_SIZE,Yard.BLOCK_SIZE,Yard.BLOCK_SIZE);
+	}
+	
+	
+	public void eat(Egg egg){
+		if(this.getRect().intersects(egg.getRec())){
+			egg.reApprear();
+			this.addToHead();
+			System.out.println("true");
+		}else{
+			System.out.println("false");
+		}
+	}
+	
+	
 
 	private class Node {
 		int w = Yard.BLOCK_SIZE;
