@@ -10,41 +10,40 @@ public class Egg {
 	private int col;
 	static Random r = new Random();
 	Color eggColor = Color.green;
+
 	Egg() {
-		 
-		this(r.nextInt(Yard.ROW-1)+1,r.nextInt(Yard.COL));
-		
-		 
+
+		this(r.nextInt(Yard.ROW - 3) + 3, r.nextInt(Yard.COL + 1) - 1);
+
 	}
+
 	Egg(int row, int col) {
 		this.row = row;
 		this.col = col;
 	}
 
 	public void reApprear() {
-		row = r.nextInt(Yard.ROW-1) + 1;
-		col = r.nextInt(Yard.COL);
+		System.out.print("gogog");
+		this.row = r.nextInt(Yard.ROW - 3) + 3;
+		this.col = r.nextInt(Yard.COL + 1) - 1;
 	}
-	public Rectangle getRec(){
-		return   new Rectangle(col*Yard.BLOCK_SIZE,row*Yard.BLOCK_SIZE,Yard.BLOCK_SIZE,Yard.BLOCK_SIZE);
-		
+
+	public Rectangle getRect() {
+		System.out.println("Egg:" + this.row + ":" + this.col);
+		return new Rectangle(row * Yard.BLOCK_SIZE, col * Yard.BLOCK_SIZE, Yard.BLOCK_SIZE, Yard.BLOCK_SIZE);
 	}
-	
-	
-	
-	
-	 
-	public void draw(Graphics g){
+
+	public void draw(Graphics g) {
 		Color c = g.getColor();
 		g.setColor(eggColor);
-		g.fillOval(row*Yard.BLOCK_SIZE,col*Yard.BLOCK_SIZE, Yard.BLOCK_SIZE, Yard.BLOCK_SIZE);
+		g.fillOval(row * Yard.BLOCK_SIZE, col * Yard.BLOCK_SIZE, Yard.BLOCK_SIZE, Yard.BLOCK_SIZE);
 		g.setColor(c);
-		if(eggColor==Color.green){
-			eggColor=Color.red;
-		}else{
-			eggColor= Color.green;
+		if (eggColor == Color.green) {
+			eggColor = Color.red;
+		} else {
+			eggColor = Color.green;
 		}
-		
+
 	}
 
 }

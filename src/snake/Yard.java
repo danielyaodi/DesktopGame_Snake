@@ -1,6 +1,7 @@
 package snake;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
@@ -15,10 +16,13 @@ public class Yard extends JFrame {
 	public static final int ROW = 50;
 	public static final int COL = 50;
 	public static final int BLOCK_SIZE = 10;
-	Snake s = new Snake();
-	Egg egg= new Egg();
+	Snake s = new Snake(this);
+	Egg egg = new Egg();
 	PaintThread paintThread = new PaintThread();
 	Image offScreenImage;
+	boolean running = true;
+	int score;
+	int level=1000;
 
 	public void launch() {
 		this.setTitle("Happy Snake");
@@ -47,12 +51,16 @@ public class Yard extends JFrame {
 		for (int i = 1; i < COL; i++) {
 			g.drawRect(BLOCK_SIZE * i, 0, BLOCK_SIZE * i, ROW * BLOCK_SIZE);
 		}
-
+		g.setColor(Color.yellow);
+		g.setFont(new Font(Font.DIALOG_INPUT,Font.BOLD,18));
+		g.drawString("You ate: "+ score +" eggs", 50, 50);
+		g.drawString("Level "+score, 400, 50);
 		g.setColor(c);
 		s.eat(egg);
+		egg.draw(g);
 		s.draw(g);
 		
-		egg.draw(g);
+
 	}
 
 	@Override
@@ -69,10 +77,10 @@ public class Yard extends JFrame {
 
 		@Override
 		public void run() {
-			while (true) {
+			while (running) {
 				repaint();
 				try {
-					Thread.sleep(100);
+					Thread.sleep(level);
 
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
@@ -98,6 +106,11 @@ public class Yard extends JFrame {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		new Yard().launch();
+	}
+
+	public void stop() {
+		running = false;
+
 	}
 
 }

@@ -7,14 +7,14 @@ import java.awt.event.KeyEvent;
 
 public class Snake {
 
-	private Node head;
-	private Node tail;
+	private Node head=null;
+	private Node tail=null;
 	private int len;
 	private Yard y;
 	private Node n = new Node(20, 20, Dir.R);
 
-	Snake() {
-		// this.y = y;
+	Snake(Yard y) {
+		this.y = y;
 		head = n;
 		tail = n;
 		len = 1;
@@ -69,7 +69,7 @@ public class Snake {
 	private void move() {
 		addToHead();
 		deleteFromTail();
-
+		checkDead();
 	}
 
 	private void deleteFromTail() {
@@ -77,10 +77,8 @@ public class Snake {
 			return;
 		}
 		tail = tail.prev;
-		tail.next=null;
-		
-		
-		 
+		tail.next = null;
+
 	}
 
 	public void draw(Graphics g) {
@@ -95,22 +93,29 @@ public class Snake {
 		}
 
 	}
-	Rectangle getRect(){
-		return new Rectangle(head.col*Yard.BLOCK_SIZE,head.row*Yard.BLOCK_SIZE,Yard.BLOCK_SIZE,Yard.BLOCK_SIZE);
+
+	private Rectangle getRect() {
+		System.out.println("Head:"+head.row+":"+head.col);
+		return new Rectangle(head.col * Yard.BLOCK_SIZE, head.row * Yard.BLOCK_SIZE, head.w, head.h);
 	}
-	
-	
-	public void eat(Egg egg){
-		if(this.getRect().intersects(egg.getRec())){
+
+	public void eat(Egg egg) {
+		if (this.getRect().intersects(egg.getRect())) {
+			
 			egg.reApprear();
 			this.addToHead();
-			System.out.println("true");
-		}else{
-			System.out.println("false");
+			y.score++;
+			y.level=y.level-100;
 		}
+		
 	}
-	
-	
+
+	public void checkDead() {
+		if (head.row < 0 || head.col < 0 || head.row > Yard.ROW || head.col > Yard.COL) {
+			y.stop();;
+		}
+
+	}
 
 	private class Node {
 		int w = Yard.BLOCK_SIZE;
@@ -119,7 +124,7 @@ public class Snake {
 		Node prev;
 		int row;
 		int col;
-		Dir dir=Dir.L;
+		Dir dir;
 
 		Node(int row, int col, Dir dir) {
 			this.row = row;
